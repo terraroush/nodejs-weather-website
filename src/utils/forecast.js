@@ -9,8 +9,12 @@ const forecast = (lat, long, callback) => {
         } else if (body.error) {
             callback("Unable to provide weather info. Check that you've provided the correct location.")
         } else {
+            const icon = body.current.weather_icons[0]
             const currentWeather = body.current
-            callback(undefined, `${currentWeather.weather_descriptions[0]}. It is currently ${currentWeather.temperature} degrees out. It feels like ${currentWeather.feelslike} degrees out.`)
+            callback(undefined, {
+                description: `${currentWeather.weather_descriptions[0]}.`, currentTemp: `It is currently ${currentWeather.temperature} degrees out. It feels like ${currentWeather.feelslike} degrees out.`,
+                icon
+            })
         }
     })
 }
